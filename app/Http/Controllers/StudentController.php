@@ -25,8 +25,26 @@ class StudentController extends Controller
         return back()->with("success","Student Create SuccessFully");
     }
 
-    public function edit()
+    public function update(Request $request , $id)
     {
-        return view("student.edit");
+        Student::updateStudent($request, $id);
+        return back()->with("success","Student Update Successfully");
+    }
+
+    public function edit($id)
+    {
+        $this->student = Student::findOrFail($id);
+        return view("student.edit",["student"=>$this->student]);
+    }
+
+    public function delete($StudentId)
+    {
+        $this->student = Student::find($StudentId);
+        if(file_exists($this->student->image))
+        {
+            unlink($this->student->image);
+        }
+        $this->student->delete();
+        return back()->with("success","Student Delete Successfully");
     }
 }

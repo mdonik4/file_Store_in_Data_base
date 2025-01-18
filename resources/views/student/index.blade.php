@@ -14,6 +14,9 @@
                         <div class="card-header">
                             <h2 class="text-center fw-bold">Manage-Student</h2>
                             <div class="card-body">
+                                 <div class="text-center text-success fw-bolder">
+                                    <span>{{ Session::has('success') ? Session::get('success') : ''}}</span>
+                                </div>
                                 <table class="table border">
                                     <thead>
                                         <tr>
@@ -34,11 +37,13 @@
                                         <td>{{ $student->email }}</td>
                                         <td>{{ $student->mobile }}</td>
                                         <td>
-                                            <img src="{{ asset($student->image) }}" style="height: 60px; width: 50px" alt="">
+                                            <div class="mb-4">
+                                                <img src="{{ asset($student->image) }}" style="height: 60px; width: 50px" alt="">
+                                            </div>
                                         </td>
                                         <td>
-                                            <a href="{{route('student.edit', ['id' => $student->id])}}" class="btn btn-outline-primary btn-sm rounded-0">Edit</a>
-                                            <a href="{{route('student.destroy', ['id' => $student->id])}}" onclick="return confirm('Are you sure delete this?')" class="btn btn-outline-danger btn-sm rounded-0">Delete</a>
+                                            <a href="{{route('student.edit',['id' => $student->id])}}" class="btn btn-outline-primary btn-sm rounded-0">Edit</a>
+                                            <a href="{{route('student.delete',['id'=> $student->id])}}" class="btn btn-outline-danger btn-sm rounded-0" onclick="return confirm('Are you sure to delete this?')">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
